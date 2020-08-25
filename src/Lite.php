@@ -1,5 +1,5 @@
 <?php
-namespace ctbsea\phalapiExcel ;
+namespace utf6\phalapiExcel ;
 /**
  * PHPExcel
  * Copyright (c) 2006 - 2013 PHPExcel
