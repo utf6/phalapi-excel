@@ -1,31 +1,34 @@
-## PahlApi2.x 接口框架利用 PHPExcel 处理Excel 文件
+PahlApi2.x 接口框架利用 PHPExcel 处理 Excel 文件
 
-##前言
+### 附上:
 
-在之前有提供过一个PhalApi-Excel拓展来提供导出,但是还是有一些不方便,比如没有导入,导出文件体积过大此类问题,也是应为自身业务有使用到重新来提供一个PHPExcel的拓展
-来提供更为强大的Excel处理功能
+PhalApi 官网地址： [http://www.phalapi.net/](http://www.phalapi.net/ "PhalApi官网")
 
-附上:
+开源中国Git地址：[http://git.oschina.net/dogstar/PhalApi/tree/release](http://git.oschina.net/dogstar/PhalApi/tree/release "开源中国Git地址")
 
-官网地址:[http://www.phalapi.net/](http://www.phalapi.net/ "PhalApi官网")
+开源中国拓展Git地址：[http://git.oschina.net/dogstar/PhalApi-Library](http://git.oschina.net/dogstar/PhalApi-Library "开源中国Git地址")
 
-开源中国Git地址:[http://git.oschina.net/dogstar/PhalApi/tree/release](http://git.oschina.net/dogstar/PhalApi/tree/release "开源中国Git地址")
+### 1、安装
 
-开源中国拓展Git地址:[http://git.oschina.net/dogstar/PhalApi-Library](http://git.oschina.net/dogstar/PhalApi-Library "开源中国Git地址")
+可以直接在 composer.json 文件中添加
 
-##1. 安装
-
-    composer require utf6/phalapi-execl
-
-##2. 初始化
-
-在di.php加入
+    "require": {
+        "utf6/phalapi-excel" : "*"
+    },
     
-    $di->execl = function() {
+或者直接使用 composer 安装    
+
+    composer require utf6/phalapi-excel
+
+### 2、初始化
+
+在 di.php 加入
+    
+    $di->excel = function() {
         return new \utf6\phalapiExcel\Lite();
     };
 
-##3. 使用
+### 3、使用
 
 PhalApi-PHPExcel提供两个基础封装好的方法分别是 exportExcel、importExcel 分别处理导入、导出功能。
 
@@ -41,16 +44,16 @@ exportExcel 接受三个参数，$data基础数据，$headArr标题，$filename 
     $filename    = "用户信息.xlsx";
     $headArr     = array("用户名", "密码");
     
-    \PhalApi\DI()->execl->exportExcel($filename, $data, $headArr);
+    \PhalApi\DI()->excel->exportExcel($filename, $data, $headArr);
         
 PhalApi-PHPExcel可根据导出的文件后缀来导出不同格式的Excel文档
 
 importExcel 接受三个参数：$filename 文件名称，$firstRowTitle 标题(可选默认从第一行作为标题)，$Sheet 工作表(默认第一张工作表)
 
-    $rs = \PhalApi\DI()->execl->importExcel("./test.xlsx");
+    $rs = \PhalApi\DI()->excel->importExcel("./test.xlsx");
 
 **当然 PHPExcel 是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用**
 
-##4. 总结
+### 4、总结
 
-希望此拓展能够给大家带来方便以及实用！欢迎大家 PR 、 Start！
+希望此拓展能够给大家带来方便以及实用！
