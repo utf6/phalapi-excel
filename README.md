@@ -15,44 +15,42 @@
 
 ##1. 安装
 
-    "require": {
-        "utf6/phalapi-excel" : "*"
-    },
+    composer require utf6/phalapi-execl
 
 ##2. 初始化
 
-    在di.php加入
+在di.php加入
+    
     $di->execl = function() {
         return new \utf6\phalapiExcel\Lite();
     };
 
 ##3. 使用
 
-PhalApi-PHPExcel提供两个基础封装好的方法分别是exportExcel,importExcel分表接触导出和接受的问题
+PhalApi-PHPExcel提供两个基础封装好的方法分别是 exportExcel、importExcel 分别处理导入、导出功能。
 
-exportExcel接受三个参数,$data基础数据,$headArr标题,$filename文件名称下面是一个例子
+exportExcel 接受三个参数，$data基础数据，$headArr标题，$filename 文件名称。
 
-       $data=array(
-            array('username'=>'zhangsan','password'=>"123456"),
-            array('username'=>'lisi','password'=>"abcdefg"),
-            array('username'=>'wangwu','password'=>"111111"),
-        );
+下面是一个例子
 
-        $filename    = "test_excel.xlsx";
-        $headArr     = array("用户名", "密码");
-        
-        \PhalApi\DI()->execl->exportExcel($filename, $data, $headArr);
+    $data = [
+        ['name' => '张三', 'password' => 'qwa3la'],
+        ['name' => '李四', 'password' => 'vdf45s']
+    ];
+    
+    $filename    = "用户信息.xlsx";
+    $headArr     = array("用户名", "密码");
+    
+    \PhalApi\DI()->execl->exportExcel($filename, $data, $headArr);
         
 PhalApi-PHPExcel可根据导出的文件后缀来导出不同格式的Excel文档
 
-importExcel接受三个参数,$filename文件名称,$firstRowTitle标题(可选默认从第一行作为标题),$Sheet工作表(默认第一张工作表)
+importExcel 接受三个参数：$filename 文件名称，$firstRowTitle 标题(可选默认从第一行作为标题)，$Sheet 工作表(默认第一张工作表)
 
     $rs = \PhalApi\DI()->execl->importExcel("./test.xlsx");
 
-**当然PHPExcel是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用**
+**当然 PHPExcel 是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用**
 
 ##4. 总结
 
-希望此拓展能够给大家带来方便以及实用,如有其他童鞋希望能加入其余常用功能可与笔者进行联系!
-
-注:笔者能力有限有说的不对的地方希望大家能够指出,也希望多多交流!
+希望此拓展能够给大家带来方便以及实用！欢迎大家 PR 、 Start！

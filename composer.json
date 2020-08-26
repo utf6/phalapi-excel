@@ -2,9 +2,9 @@
     "name": "utf6/phalapi-execl",
     "description": "PahlApi2.x 接口框架利用 PHPExcel 处理Excel 文件",
     "keywords": ["excel", "phalapi"],
-    "version": "1.1",
+    "version": "1.0",
     "homepage": "http://www.phalapi.net",
-    "license" : "MIT",
+    "license" : "GPL-3.0+",
     "authors": [
         {
             "name": "utf6",
