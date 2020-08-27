@@ -48,9 +48,29 @@ exportExcel 接受三个参数，$data基础数据，$headArr标题，$filename 
         
 PhalApi-PHPExcel可根据导出的文件后缀来导出不同格式的Excel文档
 
-importExcel 接受三个参数：$filename 文件名称，$firstRowTitle 标题(可选默认从第一行作为标题)，$Sheet 工作表(默认第一张工作表)
+importExcel 接受三个参数：$filename 文件名称，$keys 键名(选默为空， 可接受一个数组（比如数据库字段名）)，$Sheet 工作表(默认第一张工作表)
 
-    $rs = \PhalApi\DI()->excel->importExcel("./test.xlsx");
+    $data = \PhalApi\DI()->excel->importExcel("./test.xlsx");
+    //返回
+    $data = [
+        [
+            '张三',
+            '男'
+        ]
+    ];
+        
+    //传递键名
+    $keys = ['name', 'sex'];
+    $data = \PhalApi\DI()->excel->importExcel("./test.xlsx", $keys);
+    //返回
+    $data = [
+        [
+            'name' => '张三',
+            'sex' => '男'
+        ]
+    ];
+    
+    
 
 **当然 PHPExcel 是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用**
 

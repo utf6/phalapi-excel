@@ -41,45 +41,49 @@ class Lite {
         return $this->PHPExcel;
     }
 
-    public function importExcel($fileName, $firstRowTitle = 1, $Sheet = 0) {
+    /**
+     * 导入excel表格
+     * @param string $fileName
+     * @param array $keys
+     * @param int $Sheet
+     * @return array|string
+     * @throws \PHPExcel_Exception
+     * @throws \PHPExcel_Reader_Exception
+     */
 
-        if ($firstRowTitle < 0) {
-            return "firstRowTitle Error";
+    public function importExcel($fileName, $keys=[], $Sheet = 0) {
+        // 读取excel文件
+        try {
+            //依据类型读取
+            $excelType = self::getExcelType($fileName);
+
+            $PHPExcel = \PHPExcel_IOFactory::createReader($excelType);
+
+            $PHPExcel->setReadDataOnly(true); // 只需要添加这个方法实现表格数据格式转换
+
+            $PHPExcel = $PHPExcel->load($fileName);
+        } catch ( Exception $e ) {
+            return $e->getMessage();
         }
 
-        $PHPExcel = \PHPExcel_IOFactory::load($fileName);
+        //获取表中的第一个工作表，如果要获取第二个，把 0 改为 1 依次类推
+        $data = $PHPExcel->getSheet($Sheet)->toArray();
+        array_shift($data);
 
-        //获取表中的第一个工作表，如果要获取第二个，把0改为1，依次类推
-        $currentSheet = $PHPExcel->getSheet($Sheet);
-        //获取总列数
-        $allColumn = $currentSheet->getHighestColumn();
-        //获取总行数
-        $allRow = $currentSheet->getHighestRow();
-        //循环获取表中的数据，$currentRow表示当前行，从哪行开始读取数据，索引值从0开始
-        $title = array();
-        if ($firstRowTitle) {
-            for ($currentColumn = 'A'; $currentColumn <= $allColumn; $currentColumn++) {
-                //数据坐标
-                $address = $currentColumn . $firstRowTitle;
-                //读取到的数据，保存到数组$arr中
-                $title[$currentColumn] = $currentSheet->getCell($address)->getValue();
+        if ($keys){
+            if (count($data[0]) != count($keys)){
+                return "字段于数据数量不一致";
             }
-        }
 
-        for ($currentRow = $firstRowTitle + 1; $currentRow <= $allRow; $currentRow++) {
-            //从哪列开始，A表示第一列
-            for ($currentColumn = 'A'; $currentColumn <= $allColumn; $currentColumn++) {
-                //数据坐标
-                $address = $currentColumn . $currentRow;
-                if ($title) {
-                    //读取到的数据，保存到数组$arr中
-                    $arr[$currentRow][$this->getIndex($title, $currentColumn, $currentColumn)] = $currentSheet->getCell($address)->getValue();
-                } else {
-                    $arr[$currentRow][$currentColumn] = $currentSheet->getCell($address)->getValue();
+            foreach ($data as $i => $item){
+                foreach ($item as $k => $v){
+                    $tmp[$keys[$k]] = $v;
                 }
+                $data[$i] = $tmp;
             }
         }
-        return array_values($arr);
+
+        return $data;
     }
 
     public function getIndex($arr, $key, $default = '') {
@@ -144,7 +148,7 @@ class Lite {
                 }
 
                 $objActSheet->setCellValue($j . $column, $value);
-				$objActSheet->getColumnDimension($j)->setAutoSize(true);
+                $objActSheet->getColumnDimension($j)->setAutoSize(true);
 
                 $span++;
             }
