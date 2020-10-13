@@ -2,7 +2,6 @@
     "name": "utf6/phalapi-excel",
     "description": "PahlApi2.x 接口框架利用 PHPExcel 处理Excel 文件",
     "keywords": ["excel", "phalapi"],
-    "version": "1.0",
     "homepage": "http://www.phalapi.net",
     "license" : "MIT",
     "authors": [
@@ -14,12 +13,12 @@
         }
     ],
     "require": {
-        "php": "^5.2|^7.0",
-        "phpExcel" : "1.8.1"
+        "php": "^5.2",
+        "phpoffice/phpspreadsheet": "^1.18"
     },
     "autoload": {
         "psr-4": {
-            "utf6\\phalapiExcel\\": "src"
+            "utf6\\phalapiExcel\\": "src/"
         }
     }
 
