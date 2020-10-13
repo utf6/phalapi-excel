@@ -50,7 +50,6 @@ class Lite {
      * @throws \PHPExcel_Exception
      * @throws \PHPExcel_Reader_Exception
      */
-
     public function importExcel($fileName, $keys=[], $Sheet = 0) {
         // 读取excel文件
         try {
@@ -86,12 +85,29 @@ class Lite {
         return $data;
     }
 
+    /**
+     * 获取索引
+     * @param $arr
+     * @param $key
+     * @param string $default
+     * @return string
+     */
     public function getIndex($arr, $key, $default = '') {
 
         return isset($arr[$key]) ? $arr[$key] : $default;
     }
 
-    public function exportExcel($fileName, $data, $headArr) {
+    /**
+     * 导出数据
+     * @param $fileName
+     * @param $data
+     * @param $headArr
+     * @param string $type
+     * @throws \PHPExcel_Exception
+     * @throws \PHPExcel_Reader_Exception
+     * @throws \PHPExcel_Writer_Exception
+     */
+    public function exportExcel($fileName, $data, $headArr, $type="vnd.ms-excel") {
 
         //对数据进行检验
         if (empty($data) || !is_array($data)) {
@@ -158,8 +174,10 @@ class Lite {
         $fileName = iconv("utf-8", "gb2312", $fileName);
         //设置活动单指数到第一个表,所以Excel打开这是第一个表
         $objPHPExcel->setActiveSheetIndex(0);
-        header('Content-Type: application/vnd.ms-excel');
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
         header("Content-Disposition: attachment;filename=\"$fileName\"");
+        header('Access-Control-Max-Age: 86400');    //缓存预检
         header('Cache-Control: max-age=0');
 
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, self::getExcelType($fileName));
@@ -167,6 +185,11 @@ class Lite {
         exit;
     }
 
+    /**
+     * 获取 excel 表格类型
+     * @param $pFilename
+     * @return string|null
+     */
     public static function getExcelType($pFilename) {
 
         // First, lucky guess by inspecting file extension

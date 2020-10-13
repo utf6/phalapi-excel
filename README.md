@@ -32,7 +32,7 @@ PhalApi 官网地址： [http://www.phalapi.net/](http://www.phalapi.net/ "PhalA
 
 PhalApi-PHPExcel提供两个基础封装好的方法分别是 exportExcel、importExcel 分别处理导入、导出功能。
 
-exportExcel 接受三个参数，$data基础数据，$headArr标题，$filename 文件名称。
+exportExcel 接受4个参数，$data基础数据，$headArr标题，$filename 文件名称，$type 下载方式（默认 vnd.ms-excel，ajax 导出时为：json）。
 
 下面是一个例子
 
@@ -44,7 +44,7 @@ exportExcel 接受三个参数，$data基础数据，$headArr标题，$filename 
     $filename    = "用户信息.xlsx";
     $headArr     = array("用户名", "密码");
     
-    \PhalApi\DI()->excel->exportExcel($filename, $data, $headArr);
+    \PhalApi\DI()->excel->exportExcel($filename, $data, $headArr, 'json');
         
 PhalApi-PHPExcel可根据导出的文件后缀来导出不同格式的Excel文档
 
@@ -59,7 +59,8 @@ importExcel 接受三个参数：$filename 文件名称，$keys 键名(选默为
         ]
     ];
         
-    //传递键名
+传递键名
+
     $keys = ['name', 'sex'];
     $data = \PhalApi\DI()->excel->importExcel("./test.xlsx", $keys);
     //返回
@@ -72,8 +73,4 @@ importExcel 接受三个参数：$filename 文件名称，$keys 键名(选默为
     
     
 
-**当然 PHPExcel 是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用**
-
-### 4、总结
-
-希望此拓展能够给大家带来方便以及实用！
+**当然 PHPExcel 是一个强大的工具可以通过$PHPExcel->getPHPExcel();获得完整的PHPExcel实例自由使用！**
