@@ -4,8 +4,6 @@ PahlApi2.x 接口框架利用 PHPExcel 处理 Excel 文件
 
 PhalApi 官网地址： [http://www.phalapi.net/](http://www.phalapi.net/ "PhalApi官网")
 
-开源中国拓展Git地址：[http://git.oschina.net/dogstar/PhalApi-Library](http://git.oschina.net/dogstar/PhalApi-Library "开源中国Git地址")
-
 ### 1、安装
 
 可以直接在 composer.json 文件中添加
