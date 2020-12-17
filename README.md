@@ -73,4 +73,4 @@ $data = [
     ]
 ];
 ```
-**当然 PHPExcel 是一个强大的工具可以通过 `$PHPExcel->getPHPExcel()` 获得完整的 PHPExcel 实例自由使用！**
+当然 PHPExcel 是一个强大的工具可以通过 `$PHPExcel->getPHPExcel()` 获得完整的 PHPExcel 实例自由使用！
